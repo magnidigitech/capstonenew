@@ -9,6 +9,7 @@ const navigation = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Lab (NABL)", href: "/lab" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Careers", href: "/careers" },
@@ -30,8 +31,8 @@ export function Navbar() {
                         <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> Info.capstoneinfras@gmail.com</span>
                     </div>
                     <div className="flex space-x-4">
-                        <Link href="/careers" className="hover:text-gray-200 transaction-colors">Careers</Link>
-                        <Link href="/news" className="hover:text-gray-200 transaction-colors">News</Link>
+                        <Link href="/careers" className="hover:text-gray-200 transition-colors">Careers</Link>
+                        <Link href="/news" className="hover:text-gray-200 transition-colors">News</Link>
                     </div>
                 </div>
             </div>
@@ -39,9 +40,12 @@ export function Navbar() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-20">
                     <div className="flex-shrink-0 flex items-center">
-                        <Link href="/" className="flex flex-col">
-                            <span className="text-2xl font-bold text-primary tracking-tight">CAPSTONE</span>
-                            <span className="text-xs font-semibold text-primary tracking-[0.3em] ml-1">INFRAS</span>
+                        <Link href="/" className="flex items-center">
+                            <img
+                                src="/images/logo.svg"
+                                alt="Capstone Infras Logo"
+                                className="h-20 w-auto" // Adjust height as needed
+                            />
                         </Link>
                     </div>
 

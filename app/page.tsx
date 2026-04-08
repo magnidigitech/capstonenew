@@ -26,10 +26,10 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-              Precision in <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Structural Engineering</span>
+              Do you <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Own a Plot?</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10">
-              Building trust through expert structural audits, NABL accredited testing, and innovative design solutions for industrial and commercial projects.
+              We will build your dream home with precision and quality.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

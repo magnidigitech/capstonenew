@@ -33,6 +33,7 @@ export function Footer() {
                         <ul className="space-y-3 text-sm text-gray-400">
                             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
                             <li><Link href="/services" className="hover:text-white transition-colors">Our Services</Link></li>
+                            <li><Link href="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
                             <li><Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link></li>
                             <li><Link href="/lab" className="hover:text-white transition-colors">NABL Laboratory</Link></li>
                             <li><Link href="/careers" className="hover:text-white transition-colors">Careers</Link></li>

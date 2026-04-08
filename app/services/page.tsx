@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Building2, Store, Warehouse, HeartPulse, GraduationCap, Briefcase } from "lucide-react";
 import { ConstructionPackages } from "@/components/ConstructionPackages";
 import { motion } from "framer-motion";
+import Link from 'next/link';
 
 export default function ServicesPage() {
     return (
@@ -129,13 +130,26 @@ function ServiceCard({ title, description, image }: { title: string, description
 function PlanCard({ type, size, details, recommended }: { type: string, size: string, details: string, recommended?: boolean }) {
     return (
         <div className={`p-8 rounded-2xl border ${recommended ? 'border-secondary shadow-lg relative' : 'border-gray-200 bg-white'}`}>
-            {recommended && <span className="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULAR</span>}
+            {recommended && (
+                <span className="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                    POPULAR
+                </span>
+            )}
             <h3 className="text-2xl font-bold text-primary mb-2">{type}</h3>
             <div className="text-secondary font-semibold mb-4">{size}</div>
             <p className="text-gray-600 mb-6">{details}</p>
-            <button className={`w-full py-3 rounded-lg font-bold transition-colors ${recommended ? 'bg-secondary text-white hover:bg-secondary/90' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-                View Plan Details
-            </button>
+
+            {/* Wrap the button in a Link or turn the button into a Link styled like a button */}
+            <Link href="/calculator" className="block">
+                <button
+                    className={`w-full py-3 rounded-lg font-bold transition-colors ${recommended
+                        ? 'bg-secondary text-white hover:bg-secondary/90'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                >
+                    View Plan Details
+                </button>
+            </Link>
         </div>
     );
 }
