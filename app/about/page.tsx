@@ -9,7 +9,26 @@ export default function AboutPage() {
         <div className="min-h-screen flex flex-col">
             {/* Header Section */}
             <section className="bg-primary text-white py-20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+                {/* Background Image - Desktop */}
+                <div className="absolute inset-0 hidden md:block opacity-10">
+                    <Image
+                        src="/images/hero.png"
+                        alt="About Capstone Infras"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </div>
+                {/* Background Image - Mobile */}
+                <div className="absolute inset-0 block md:hidden opacity-10">
+                    <Image
+                        src="/images/heromobile.png"
+                        alt="About Capstone Infras Mobile"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                </div>
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}

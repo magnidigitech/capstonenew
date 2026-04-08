@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, CheckCircle, Building2, HardHat, FileCheck, ShieldCheck, PlayCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { ProcessFlow } from "@/components/ProcessFlow";
@@ -14,10 +15,27 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center bg-gray-900 text-white overflow-hidden">
-        {/* ... (Hero content unchanged) ... */}
-        {/* Background Image Placeholder */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+        {/* Background Image - Desktop */}
+        <div className="absolute inset-0 hidden md:block opacity-40 xl:opacity-50">
+          <Image
+            src="/images/hero.png"
+            alt="Capstone Infras Hero"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        {/* Background Image - Mobile */}
+        <div className="absolute inset-0 block md:hidden opacity-40">
+          <Image
+            src="/images/heromobile.png"
+            alt="Capstone Infras Hero Mobile"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
 
         <div className="container relative z-10 px-4 text-center">
           <motion.div

@@ -25,7 +25,7 @@ export default function JsonLd() {
                 "@type": "LocalBusiness",
                 "@id": "https://capstone-infras.com/#localbusiness",
                 "name": "Capstone Infras",
-                "image": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop",
+                "image": "https://capstone-infras.com/images/hero.png",
                 "telephone": "+91-9876543210",
                 "address": {
                     "@type": "PostalAddress",
