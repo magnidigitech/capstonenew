@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import JsonLd from "@/components/JsonLd";
 
 const geistSans = Geist({
@@ -31,12 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Navbar />
-        <main className="flex-grow pt-20">
+        <ConditionalLayout>
           {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
+        </ConditionalLayout>
         <JsonLd />
       </body>
     </html>

@@ -104,26 +104,21 @@ export default function AdminDashboard() {
         if (!pricingData) return;
         setSaving(true);
         try {
-            // Updated to support MySQL-backed API which might require separate calls or a unified save
-            // For now, let's stick to the current pattern but iterate over packages
-            const promises = Object.values(pricingData.packages).map(pkg => {
-                const features = pricingData.packageFeatures[pkg.name.toLowerCase().replace(/\s+/g, '')] || [];
-                return fetch("/api/pricing", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        id: pkg.id,
-                        package_name: pkg.name,
-                        rate_per_sqft: pkg.price,
-                        features: features,
-                        materials_json: pkg.materials
-                    }),
-                });
+            const res = await fetch("/api/pricing", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    bulk: true,
+                    packages: pricingData.packages,
+                    packageFeatures: pricingData.packageFeatures
+                }),
             });
 
-            const results = await Promise.all(promises);
-            if (results.every(r => r.ok)) showSuccess();
-            else alert("Failed to save some pricing data");
+            if (res.ok) {
+                showSuccess();
+            } else {
+                alert("Failed to save pricing data");
+            }
         } catch (error) {
             console.error("Error saving pricing:", error);
             alert("Error saving pricing");
@@ -260,11 +255,18 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen bg-gray-50 pb-20">
-            {/* Header */}
             <header className="bg-white shadow-sm sticky top-0 z-40">
                 <div className="container mx-auto px-4 h-16 flex justify-between items-center">
                     <h1 className="text-xl font-bold text-primary">Admin Dashboard</h1>
                     <div className="flex items-center gap-4">
+                        <a 
+                            href="/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex items-center gap-1.5 text-gray-600 hover:text-primary transition-colors text-sm font-medium border border-gray-200 px-3 py-1.5 rounded-lg hover:border-primary/20"
+                        >
+                            View Live Site <ExternalLink className="h-4 w-4" />
+                        </a>
                         {success && (
                             <span className="text-green-600 flex items-center gap-2 text-sm font-medium animate-in fade-in slide-in-from-top-2">
                                 <CheckCircle2 className="h-4 w-4" /> Saved Successfully

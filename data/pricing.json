@@ -2,7 +2,7 @@
   "packages": {
     "essential": {
       "name": "Essential",
-      "price": 2150,
+      "price": 2250,
       "materials": {
         "cement": {
           "item": "UltraTech, ACC (OPC/PPC)",
@@ -68,7 +68,7 @@
     },
     "valueplus": {
       "name": "Value Plus",
-      "price": 2450,
+      "price": 2550,
       "materials": {
         "cement": {
           "item": "UltraTech, Maha, ACC Gold",
@@ -134,7 +134,7 @@
     },
     "signature": {
       "name": "Signature",
-      "price": 3850,
+      "price": 4000,
       "materials": {
         "cement": {
           "item": "Birla White, UltraTech Premium",
