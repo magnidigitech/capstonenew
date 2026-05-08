@@ -1,0 +1,228 @@
+{
+  "packages": {
+    "essential": {
+      "name": "Essential",
+      "price": 2150,
+      "materials": {
+        "cement": {
+          "item": "UltraTech, ACC (OPC/PPC)",
+          "rate": "₹370/bag",
+          "description": "Premium quality cement"
+        },
+        "bricks": {
+          "item": "ACC Blocks, Red clay Bricks",
+          "rate": "₹7/brick",
+          "description": "Standard construction bricks"
+        },
+        "steel": {
+          "item": "Simhadri, Radha (Fe500D)",
+          "rate": "₹59/kg",
+          "description": "High strength steel"
+        },
+        "sand": {
+          "item": "Robo Sand, River Sand",
+          "rate": "₹45/cft",
+          "description": "Quality sand for construction"
+        },
+        "flooring": {
+          "item": "Ceramic Tiles (Local Brands)",
+          "rate": "₹40/sft",
+          "description": "Basic ceramic flooring"
+        },
+        "painting": {
+          "item": "Emulsion (Asian Paints, Berger)",
+          "rate": "₹22/sft",
+          "description": "Standard paint finish"
+        },
+        "plumbing": {
+          "item": "PVC Pipes (Finolex, Supreme)",
+          "rate": "₹180/meter",
+          "description": "Standard plumbing"
+        },
+        "wiring": {
+          "item": "Anchor, Polycab Wiring",
+          "rate": "₹45/sft",
+          "description": "Basic electrical wiring"
+        },
+        "exterior": {
+          "item": "Standard Plastering",
+          "rate": "₹55/sft",
+          "description": "Basic exterior finish"
+        },
+        "bathroom": {
+          "item": "CERA, Parryware",
+          "rate": "₹25,000/unit",
+          "description": "Standard bathroom fittings"
+        },
+        "doors": {
+          "item": "Aluminum Frames, Local Timber",
+          "rate": "₹250/sft",
+          "description": "Basic doors & windows"
+        },
+        "lighting": {
+          "item": "Philips, Syska Fixtures",
+          "rate": "₹2,500/room",
+          "description": "Standard lighting"
+        }
+      }
+    },
+    "valueplus": {
+      "name": "Value Plus",
+      "price": 2450,
+      "materials": {
+        "cement": {
+          "item": "UltraTech, Maha, ACC Gold",
+          "rate": "₹390/bag",
+          "description": "Premium cement brands"
+        },
+        "bricks": {
+          "item": "ACC Blocks, Red clay Bricks",
+          "rate": "₹9/brick",
+          "description": "Quality construction bricks"
+        },
+        "steel": {
+          "item": "Vizag, MS Life",
+          "rate": "₹63/kg",
+          "description": "Premium grade steel"
+        },
+        "sand": {
+          "item": "River Sand (filtered)",
+          "rate": "₹50/cft",
+          "description": "Filtered quality sand"
+        },
+        "flooring": {
+          "item": "Vitrified Tiles (Kajaria, Nitco)",
+          "rate": "₹65/sft",
+          "description": "Premium vitrified tiles"
+        },
+        "painting": {
+          "item": "Asian Royale, Nerolac",
+          "rate": "₹28/sft",
+          "description": "Premium paint brands"
+        },
+        "plumbing": {
+          "item": "uPVC (Astral, Prince)",
+          "rate": "₹220/meter",
+          "description": "Premium plumbing"
+        },
+        "wiring": {
+          "item": "Legrand, Anchor Modular",
+          "rate": "₹55/sft",
+          "description": "Modular electrical systems"
+        },
+        "exterior": {
+          "item": "Textured Cladding",
+          "rate": "₹85/sft",
+          "description": "Premium exterior finish"
+        },
+        "bathroom": {
+          "item": "Hindware, Jaquar",
+          "rate": "₹45,000/unit",
+          "description": "Premium bathroom fittings"
+        },
+        "doors": {
+          "item": "uPVC (Fenesta, LG Hausys)",
+          "rate": "₹380/sft",
+          "description": "Premium doors & windows"
+        },
+        "lighting": {
+          "item": "Havells, Philips Hue",
+          "rate": "₹5,000/room",
+          "description": "Designer lighting"
+        }
+      }
+    },
+    "signature": {
+      "name": "Signature",
+      "price": 3850,
+      "materials": {
+        "cement": {
+          "item": "Birla White, UltraTech Premium",
+          "rate": "₹450/bag",
+          "description": "Ultra premium cement"
+        },
+        "bricks": {
+          "item": "Wire-cut/Designer Bricks",
+          "rate": "₹12-15/brick",
+          "description": "Designer construction bricks"
+        },
+        "steel": {
+          "item": "Tata Tiscon, JSW",
+          "rate": "₹97/kg",
+          "description": "Premium steel brands"
+        },
+        "sand": {
+          "item": "Washed M-Sand (Certified)",
+          "rate": "₹55/cft",
+          "description": "Certified quality sand"
+        },
+        "flooring": {
+          "item": "Italian Marble / Pergo",
+          "rate": "₹250-350/sft",
+          "description": "Luxury flooring options"
+        },
+        "painting": {
+          "item": "Luxury Paints (Dulux, Sherwin)",
+          "rate": "₹35-45/sft",
+          "description": "Premium luxury paints"
+        },
+        "plumbing": {
+          "item": "Aquatherm, Viega, Grohe",
+          "rate": "₹400-600/meter",
+          "description": "Luxury plumbing systems"
+        },
+        "wiring": {
+          "item": "Schneider, ABB + Smart",
+          "rate": "₹80-110/sft",
+          "description": "Smart electrical systems"
+        },
+        "exterior": {
+          "item": "Designer Facades (ACP/HPL)",
+          "rate": "₹150-250/sft",
+          "description": "Premium exterior design"
+        },
+        "bathroom": {
+          "item": "Toto, Villeroy & Boch",
+          "rate": "₹75,000-1L/unit",
+          "description": "Luxury bathroom fittings"
+        },
+        "doors": {
+          "item": "Teakwood, Engineered + Smart",
+          "rate": "₹650-850/sft",
+          "description": "Luxury doors & windows"
+        },
+        "lighting": {
+          "item": "Smart Automation Systems",
+          "rate": "₹12,000+/room",
+          "description": "Smart lighting automation"
+        }
+      }
+    }
+  },
+  "packageFeatures": {
+    "essential": [
+      "ACC Blocks & Local Bricks",
+      "Vizag, Simhadri, Radha Steel",
+      "Robo Sand & River Sand",
+      "Basic Ceramic Tiles",
+      "Basic Emulsion Paint",
+      "PVC Pipes & Basic Wiring"
+    ],
+    "valueplus": [
+      "ACC Blocks & Red Bricks",
+      "Vizag Steel, MS Life",
+      "River Sand (Filtered)",
+      "Vitrified Tiles (Kajaria, Nitco)",
+      "Premium Emulsion Paint",
+      "uPVC Pipes & Modular Switches"
+    ],
+    "signature": [
+      "Wire-cut & Designer Bricks",
+      "Tata Steel, Onduline Materials",
+      "River Sand Premium",
+      "Italian Marble, Hardwood",
+      "Luxury Paint Finish",
+      "Advanced & Smart Systems"
+    ]
+  }
+}

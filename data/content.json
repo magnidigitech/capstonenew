@@ -1,0 +1,47 @@
+{
+    "testimonials": [
+        {
+            "id": "1",
+            "name": "Rajesh Kumar",
+            "role": "Homeowner, Guntur",
+            "text": "Capstone Infras transformed our dream home into reality. Their attention to detail and transparency in pricing was unmatched.",
+            "rating": 5
+        },
+        {
+            "id": "2",
+            "name": "Suresh Reddy",
+            "role": "Commercial Developer",
+            "text": "Professional team with excellent project management skills. The structural audit they performed saved us significant costs.",
+            "rating": 5
+        },
+        {
+            "id": "3",
+            "name": "Priya Sharma",
+            "role": "Architect",
+            "text": "As an architect, I value structural integrity above all. Capstone's engineering team is the best I've worked with in Andhra Pradesh.",
+            "rating": 5
+        }
+    ],
+    "faqs": [
+        {
+            "id": "1",
+            "question": "What is the typical timeline for a residential project?",
+            "answer": "A standard G+2 residential project typically takes 8-12 months to complete, depending on the complexity and size. We provide a detailed schedule before starting."
+        },
+        {
+            "id": "2",
+            "question": "Do you provide structural audits for old buildings?",
+            "answer": "Yes, we specialize in structural audits and non-destructive testing (NDT) to assess the health of existing structures and recommend retrofitting solutions."
+        },
+        {
+            "id": "3",
+            "question": "Is your pricing inclusive of materials?",
+            "answer": "Yes, our construction packages (Essential, Value Plus, Signature) are all-inclusive, covering materials, labor, and supervision. We ensure complete transparency with no hidden costs."
+        },
+        {
+            "id": "4",
+            "question": "Are you NABL accredited?",
+            "answer": "Yes, our material testing laboratory is NABL accredited, ensuring that all rigorous quality checks meet national and international standards."
+        }
+    ]
+}
