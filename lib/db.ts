@@ -10,6 +10,58 @@ let pool: any = null;
  * This ensures the application can boot even if the database driver
  * encounters environment-specific issues on the server.
  */
+async function initializeTables(activePool: any) {
+    try {
+        console.log('[DB] Ensuring database tables exist...');
+        
+        // 1. Customers Table
+        await activePool.execute(`
+            CREATE TABLE IF NOT EXISTS customers (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                phone VARCHAR(50) UNIQUE NOT NULL,
+                email VARCHAR(255),
+                location VARCHAR(255),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        `);
+
+        // 2. Quote Requests Table
+        await activePool.execute(`
+            CREATE TABLE IF NOT EXISTS quote_requests (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                customer_id INT NOT NULL,
+                package_id VARCHAR(50),
+                request_date DATE,
+                length_ft DECIMAL(10,2),
+                width_ft DECIMAL(10,2),
+                base_area_sqft DECIMAL(10,2),
+                floors INT,
+                total_area_sqft DECIMAL(10,2),
+                estimated_total_cost DECIMAL(15,2),
+                source VARCHAR(100),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        `);
+
+        // 3. Packages Table
+        await activePool.execute(`
+            CREATE TABLE IF NOT EXISTS packages (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                package_name VARCHAR(100) NOT NULL,
+                rate_per_sqft DECIMAL(10,2) NOT NULL,
+                features TEXT,
+                materials_json TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        `);
+
+        console.log('[DB] Database tables verified and ready.');
+    } catch (error: any) {
+        console.error('[DB] Error during table verification/creation:', error.message);
+    }
+}
+
 async function getPool() {
     if (pool) return pool;
 
@@ -34,6 +86,10 @@ async function getPool() {
         }
 
         pool = mysql.createPool(config);
+        
+        // Auto-initialize tables
+        await initializeTables(pool);
+        
         return pool;
     } catch (error: any) {
         console.error('[DB] CRITICAL: Failed to load MySQL driver or initialize pool:', error.message);

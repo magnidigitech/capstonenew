@@ -4,11 +4,56 @@ import path from 'path';
 import { promises as fs } from 'fs';
 
 /**
- * Standard GET handler for Pricing.
- * Loads from static JSON for 100% availability on Hostinger.
+ * GET handler for Pricing.
+ * Dynamic database-backed loading with a static JSON fallback for 100% reliability.
  */
 export async function GET() {
     try {
+        // 1. Try fetching pricing from the database first
+        try {
+            const dbPackages: any = await query('SELECT * FROM packages');
+            if (dbPackages && dbPackages.length > 0) {
+                const normalizedPackages: Record<string, any> = {};
+                const normalizedFeatures: Record<string, string[]> = {};
+
+                dbPackages.forEach((row: any) => {
+                    const normalizedKey = row.package_name.toLowerCase().replace(/\s+/g, '');
+                    
+                    let materials = {};
+                    try {
+                        materials = typeof row.materials_json === 'string' ? JSON.parse(row.materials_json) : row.materials_json;
+                    } catch (e) {
+                        materials = row.materials_json || {};
+                    }
+
+                    let featuresList = [];
+                    try {
+                        featuresList = typeof row.features === 'string' ? JSON.parse(row.features) : row.features;
+                    } catch (e) {
+                        featuresList = row.features || [];
+                    }
+
+                    normalizedPackages[normalizedKey] = {
+                        id: row.id,
+                        name: row.package_name,
+                        price: Number(row.rate_per_sqft),
+                        materials: materials
+                    };
+
+                    normalizedFeatures[normalizedKey] = featuresList;
+                });
+
+                console.log('[API] Pricing fetched from Database.');
+                return NextResponse.json({
+                    packages: normalizedPackages,
+                    packageFeatures: normalizedFeatures
+                });
+            }
+        } catch (dbError: any) {
+            console.warn('[API] Database pricing fetch failed or tables empty. Falling back to static JSON.', dbError.message);
+        }
+
+        // 2. Fallback: Load from static JSON
         const dataFilePath = path.join(process.cwd(), 'data', 'pricing.json');
         const fileContents = await fs.readFile(dataFilePath, 'utf8');
         const data = JSON.parse(fileContents);
@@ -26,6 +71,7 @@ export async function GET() {
             normalizedFeatures[normalizedKey] = features;
         });
 
+        console.log('[API] Pricing fetched from Static JSON fallback.');
         return NextResponse.json({
             packages: normalizedPackages,
             packageFeatures: normalizedFeatures
@@ -38,7 +84,7 @@ export async function GET() {
 
 /**
  * POST handler for Admin Pricing updates.
- * PERSISTS to MySQL for the Admin Dashboard.
+ * Persists to MySQL with name-based upsert logic to prevent duplicates.
  */
 export async function POST(request: Request) {
     try {
@@ -51,10 +97,19 @@ export async function POST(request: Request) {
                 [package_name, rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json), id]
             );
         } else {
-            await query(
-                'INSERT INTO packages (package_name, rate_per_sqft, features, materials_json) VALUES (?, ?, ?, ?)',
-                [package_name, rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json)]
-            );
+            // Check if a package with the same name already exists to prevent duplicate rows on initial save
+            const existing: any = await query('SELECT id FROM packages WHERE LOWER(package_name) = ?', [package_name.toLowerCase()]);
+            if (existing && existing.length > 0) {
+                await query(
+                    'UPDATE packages SET rate_per_sqft = ?, features = ?, materials_json = ? WHERE id = ?',
+                    [rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json), existing[0].id]
+                );
+            } else {
+                await query(
+                    'INSERT INTO packages (package_name, rate_per_sqft, features, materials_json) VALUES (?, ?, ?, ?)',
+                    [package_name, rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json)]
+                );
+            }
         }
 
         return NextResponse.json({ success: true });
