@@ -87,8 +87,10 @@ async function getPool() {
 
         pool = mysql.createPool(config);
         
-        // Auto-initialize tables
-        await initializeTables(pool);
+        // Auto-initialize tables in the background to prevent any blocking or timeouts
+        initializeTables(pool).catch(err => {
+            console.error('[DB] Background table initialization failed:', err.message);
+        });
         
         return pool;
     } catch (error: any) {
