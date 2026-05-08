@@ -107,7 +107,7 @@ export default function AdminDashboard() {
             // Updated to support MySQL-backed API which might require separate calls or a unified save
             // For now, let's stick to the current pattern but iterate over packages
             const promises = Object.values(pricingData.packages).map(pkg => {
-                const features = pricingData.packageFeatures[pkg.name.toLowerCase()];
+                const features = pricingData.packageFeatures[pkg.name.toLowerCase().replace(/\s+/g, '')] || [];
                 return fetch("/api/pricing", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },

@@ -94,7 +94,7 @@ export async function POST(request: Request) {
         if (id) {
             await query(
                 'UPDATE packages SET package_name = ?, rate_per_sqft = ?, features = ?, materials_json = ? WHERE id = ?',
-                [package_name, rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json), id]
+                [package_name, rate_per_sqft, JSON.stringify(features || []), JSON.stringify(materials_json), id]
             );
         } else {
             // Check if a package with the same name already exists to prevent duplicate rows on initial save
@@ -102,12 +102,12 @@ export async function POST(request: Request) {
             if (existing && existing.length > 0) {
                 await query(
                     'UPDATE packages SET rate_per_sqft = ?, features = ?, materials_json = ? WHERE id = ?',
-                    [rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json), existing[0].id]
+                    [rate_per_sqft, JSON.stringify(features || []), JSON.stringify(materials_json), existing[0].id]
                 );
             } else {
                 await query(
                     'INSERT INTO packages (package_name, rate_per_sqft, features, materials_json) VALUES (?, ?, ?, ?)',
-                    [package_name, rate_per_sqft, JSON.stringify(features), JSON.stringify(materials_json)]
+                    [package_name, rate_per_sqft, JSON.stringify(features || []), JSON.stringify(materials_json)]
                 );
             }
         }
