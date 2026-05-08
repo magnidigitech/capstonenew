@@ -86,7 +86,7 @@ export default function AdminDashboard() {
         try {
             const [pricingRes, contentRes, customersRes] = await Promise.all([
                 fetch("/api/pricing?t=" + Date.now()),
-                fetch("/api/content"),
+                fetch("/api/content?t=" + Date.now()),
                 fetch("/api/admin/customers")
             ]);
 

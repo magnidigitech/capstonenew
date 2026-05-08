@@ -2,11 +2,11 @@
   "packages": {
     "essential": {
       "name": "Essential",
-      "price": 2250,
+      "price": 2000,
       "materials": {
         "cement": {
           "item": "UltraTech, ACC (OPC/PPC)",
-          "rate": "₹370/bag",
+          "rate": "₹300/bag",
           "description": "Premium quality cement"
         },
         "bricks": {
@@ -68,7 +68,7 @@
     },
     "valueplus": {
       "name": "Value Plus",
-      "price": 2550,
+      "price": 3000,
       "materials": {
         "cement": {
           "item": "UltraTech, Maha, ACC Gold",

@@ -16,7 +16,7 @@ export function FAQSection() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('/api/content')
+        fetch('/api/content?t=' + Date.now())
             .then(res => res.json())
             .then(data => {
                 if (data.faqs) {
