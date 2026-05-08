@@ -59,7 +59,7 @@ function CalculatorContent() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch('/api/pricing');
+                const res = await fetch('/api/pricing?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
                     setPackages(data.packages);

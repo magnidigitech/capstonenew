@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type PackageItem = {
@@ -88,6 +88,49 @@ const packagesData: ConstructionPackage[] = [
 
 export function ConstructionPackages() {
     const [activeTab, setActiveTab] = useState("Value Plus");
+    const [packages, setPackages] = useState<ConstructionPackage[]>(packagesData);
+
+    useEffect(() => {
+        fetch('/api/pricing?t=' + Date.now())
+            .then(res => {
+                if (res.ok) return res.json();
+                throw new Error('Failed to load pricing');
+            })
+            .then(data => {
+                if (data.packages) {
+                    const updatedPackages = packagesData.map(pkg => {
+                        const normalizedKey = pkg.name.toLowerCase().replace(/\s+/g, '');
+                        if (data.packages[normalizedKey]) {
+                            const updatedPkg = data.packages[normalizedKey];
+                            
+                            // Map materials
+                            const updatedItems = { ...pkg.items };
+                            Object.keys(updatedItems).forEach(cat => {
+                                const materialKey = cat.toLowerCase().replace(/\s+.*$/, ''); // e.g., 'exterior work' -> 'exterior'
+                                const mappingKey = materialKey === 'exterior' ? 'exterior' : (materialKey === 'electrical' ? 'wiring' : materialKey);
+                                
+                                if (updatedPkg.materials && updatedPkg.materials[mappingKey]) {
+                                    updatedItems[cat] = {
+                                        ...updatedItems[cat],
+                                        rate: updatedPkg.materials[mappingKey].rate,
+                                        details: updatedPkg.materials[mappingKey].item
+                                    };
+                                }
+                            });
+
+                            return {
+                                ...pkg,
+                                price: `₹${updatedPkg.price}/sft`,
+                                items: updatedItems
+                            };
+                        }
+                        return pkg;
+                    });
+                    setPackages(updatedPackages);
+                }
+            })
+            .catch(err => console.error('Error fetching dynamic pricing:', err));
+    }, []);
 
     return (
         <section className="py-20 bg-gray-50 bg-opacity-50">
@@ -106,7 +149,7 @@ export function ConstructionPackages() {
                 <div className="lg:hidden">
                     {/* Tabs */}
                     <div className="flex rounded-xl bg-white p-1 shadow-sm mb-8 overflow-x-auto">
-                        {packagesData.map((pkg) => (
+                        {packages.map((pkg) => (
                             <button
                                 key={pkg.name}
                                 onClick={() => setActiveTab(pkg.name)}
@@ -122,7 +165,7 @@ export function ConstructionPackages() {
 
                     {/* Active Package Card */}
                     <AnimatePresence mode="wait">
-                        {packagesData.map((pkg) => (
+                        {packages.map((pkg) => (
                             activeTab === pkg.name && (
                                 <motion.div
                                     key={pkg.name}
@@ -143,9 +186,9 @@ export function ConstructionPackages() {
                                             <div key={cat} className="flex flex-col border-b border-gray-100 pb-3 last:border-0 last:pb-0">
                                                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1">{cat}</span>
                                                 <div className="flex justify-between items-start">
-                                                    <span className="text-gray-900 font-medium text-sm w-2/3">{pkg.items[cat].details}</span>
+                                                    <span className="text-gray-900 font-medium text-sm w-2/3">{pkg.items[cat]?.details || ""}</span>
                                                     <span className={`text-xs font-bold ${pkg.accentColor} bg-gray-50 px-2 py-1 rounded`}>
-                                                        {pkg.items[cat].rate}
+                                                        {pkg.items[cat]?.rate || ""}
                                                     </span>
                                                 </div>
                                             </div>
@@ -169,7 +212,7 @@ export function ConstructionPackages() {
                         <thead>
                             <tr className="bg-gray-900 text-white">
                                 <th className="p-8 text-xl font-bold w-1/4 border-r border-gray-800">Features</th>
-                                {packagesData.map((pkg) => (
+                                {packages.map((pkg) => (
                                     <th key={pkg.name} className={`p-8 text-center w-1/4 relative border-r border-gray-800 last:border-0`}>
                                         {pkg.name === "Value Plus" && (
                                             <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-b-lg uppercase tracking-wider">
@@ -193,11 +236,11 @@ export function ConstructionPackages() {
                                     <td className="p-6 font-bold text-gray-800 border-r border-gray-100 align-top">
                                         {cat}
                                     </td>
-                                    {packagesData.map((pkg) => (
+                                    {packages.map((pkg) => (
                                         <td key={`${pkg.name}-${cat}`} className="p-6 border-r border-gray-100 align-top last:border-0">
                                             <div className="flex flex-col gap-1">
-                                                <span className="text-gray-700 font-medium">{pkg.items[cat].details}</span>
-                                                <span className="text-xs font-bold text-gray-400">{pkg.items[cat].rate}</span>
+                                                <span className="text-gray-700 font-medium">{pkg.items[cat]?.details || ""}</span>
+                                                <span className="text-xs font-bold text-gray-400">{pkg.items[cat]?.rate || ""}</span>
                                             </div>
                                         </td>
                                     ))}
@@ -207,7 +250,7 @@ export function ConstructionPackages() {
                         <tfoot>
                             <tr className="bg-gray-50">
                                 <td className="p-6"></td>
-                                {packagesData.map(pkg => (
+                                {packages.map(pkg => (
                                     <td key={pkg.name} className="p-6 text-center border-r border-gray-200 last:border-0">
                                         <a href="/contact" className={`inline-block w-full py-3 rounded-lg font-bold text-white shadow-md hover:shadow-lg transition-all ${pkg.color}`}>
                                             Choose {pkg.name}
